@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		 <link rel="icon" href="favicon.ico" type="image/x-icon">
+		<link href='http://fonts.googleapis.com/css?family=Merriweather+Sans:400,300' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Niconne' rel='stylesheet' type='text/css'>
+		<title>Random Pokemon! </title>
+		<link href="index.css" type = "text/css" rel = "stylesheet">
+
+	</head>
+	
+	<body>
+
+		<div align = center>
+
+			<div id = "text">Wow. A Pokemon appeared! Wow.</div>
+			<div id = "howMany"></div>
+			<div><img id = "pokemonpic" height = "150px"></img></div>
+			<div id = "shiny"></div>
+			<div id = "winner"></div>
+			<button onclick="update()">new</button>
+			<button onclick="reset()">reset</button>
+		</div>
+		<script>
+			var pokemon_dict = window.localStorage.getItem('pokemans');
+			if (!pokemon_dict) {
+				pokemon_dict = new Array(649).join("0");
+				console.log(pokemon_dict);
+			}
+			update();
+			function update(){
+				var img_number = getRandomPokemon();
+				if (isShiny()){
+					document.getElementById("pokemonpic").src = "http://sprites.pokecheck.org/s/"+img_number+".gif";
+				}
+				else{
+					document.getElementById("pokemonpic").src = "http://sprites.pokecheck.org/i/"+img_number+".gif";
+				}
+				var num = Number(img_number)-1;
+				pokemon_dict = pokemon_dict.substring(0, num) + '1' + pokemon_dict.substring(num+1);
+				if (pokemon_dict.indexOf("0") == -1) {
+					document.getElementById("winner").innerHTML = "a winner is you."
+				}
+				window.localStorage.setItem('pokemans', pokemon_dict);
+				howManyLeft();
+
+			}
+			function getRandomPokemon() {
+	  			var num = Math.floor(Math.random() * 649) + 1;
+	  			if (num < 10) {
+			      num = '00' + String(num);
+			    } else if (num < 100) {
+			      num = '0' + String(num);
+			    }
+			    console.log(num);
+			    return num;
+			}
+			function isShiny(){
+				var num = Math.floor(Math.random()*8912);
+				var str = "";
+				if (num == 50){
+					var shiny = document.getElementById("shiny");
+					shiny.innerHTML = "omg is a shiny";
+					return true;
+				}
+				else{
+					return false
+				}
+			}
+
+			function howManyLeft(){
+				var numberLeft = pokemon_dict.split("0").length;
+				document.getElementById("howMany").innerHTML = "you have "+numberLeft+"/649 pokemen left to catch!" 
+			}
+
+
+
+			function reset(){
+				pokemon_dict = new Array(649).join("0");
+				howManyLeft();
+			}
+
+
+		</script>
+
+</body>
+</html>
