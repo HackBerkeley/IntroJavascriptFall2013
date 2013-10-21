@@ -20,14 +20,49 @@
 			<div id = "winner"></div>
 			<button onclick="update()">new</button>
 			<button onclick="reset()">reset</button>
+			<div> <button onclick="newBackground()">get new background!</button></div>
 		</div>
 		<script>
 			var pokemon_dict = window.localStorage.getItem('pokemans');
+			var pokemon_color_array = ["#FFF", '#F0F', '#0FF', '#FF0', '#F00', '#00F', '#0F0'];
 			if (!pokemon_dict) {
 				pokemon_dict = new Array(649).join("0");
 				console.log(pokemon_dict);
 			}
+			var pokemon_background = window.localStorage.getItem('pokemanBackground');
+			console.log(window.localStorage.getItem('pokemanBackground'));
+
+			function initializeColor(){
+				console.log("initialized");
+				console.log(window.localStorage.getItem('pokemanBackground'));
+				console.log(pokemon_background);
+				if (pokemon_background == null) {
+					console.log("The color issss");
+
+					pokemon_background = '#FFF';
+					document.body.style.backgroundColor = pokemon_background;
+				}
+				else{
+					console.log("The color is");
+					document.body.style.backgroundColor = pokemon_background;
+				}
+			}
+
 			update();
+			initializeColor();
+			function newBackground(){
+				console.log(pokemon_background);
+				var new_pokemon_background = pokemon_background;
+					while(new_pokemon_background == pokemon_background){
+						new_pokemon_background = pokemon_color_array[Math.floor(Math.random() * pokemon_color_array.length)];
+						console.log(new_pokemon_background);
+					}
+				window.localStorage.setItem('pokemanBackground', new_pokemon_background);
+				pokemon_background = new_pokemon_background;
+				document.body.style.backgroundColor = pokemon_background;
+
+			}
+
 			function update(){
 				var img_number = getRandomPokemon();
 				if (isShiny()){
