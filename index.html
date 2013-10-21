@@ -33,17 +33,16 @@
 			console.log(window.localStorage.getItem('pokemanBackground'));
 
 			function initializeColor(){
-				console.log("initialized");
+				console.log("Initialized");
 				console.log(window.localStorage.getItem('pokemanBackground'));
 				console.log(pokemon_background);
 				if (pokemon_background == null) {
-					console.log("The color issss");
-
+					console.log("It was null.");
 					pokemon_background = '#FFF';
 					document.body.style.backgroundColor = pokemon_background;
 				}
 				else{
-					console.log("The color is");
+					console.log("The color is now "+pokemon_background);
 					document.body.style.backgroundColor = pokemon_background;
 				}
 			}
