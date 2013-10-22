@@ -24,7 +24,7 @@
 		</div>
 		<script>
 			var pokemon_dict = window.localStorage.getItem('pokemans');
-			var pokemon_color_array = ["#FFF", '#F0F', '#0FF', '#FF0', '#F00', '#00F', '#0F0'];
+			//var pokemon_color_array = ["#FFF", '#F0F', '#0FF', '#FF0', '#F00', '#00F', '#0F0'];
 			if (!pokemon_dict) {
 				pokemon_dict = new Array(649).join("0");
 				console.log(pokemon_dict);
@@ -53,7 +53,8 @@
 				console.log(pokemon_background);
 				var new_pokemon_background = pokemon_background;
 					while(new_pokemon_background == pokemon_background){
-						new_pokemon_background = pokemon_color_array[Math.floor(Math.random() * pokemon_color_array.length)];
+						new_pokemon_background = "rgb("+Math.round(Math.random()*255)+","+Math.round(Math.random()*255)+","+Math.round(Math.random()*255)+")";
+						//new_pokemon_background = pokemon_color_array[Math.floor(Math.random() * pokemon_color_array.length)];
 						console.log(new_pokemon_background);
 					}
 				window.localStorage.setItem('pokemanBackground', new_pokemon_background);
@@ -92,12 +93,13 @@
 			function isShiny(){
 				var num = Math.floor(Math.random()*8912);
 				var str = "";
-				if (num == 50){
-					var shiny = document.getElementById("shiny");
+				var shiny = document.getElementById("shiny");
+				if (num == 1){
 					shiny.innerHTML = "omg is a shiny";
 					return true;
 				}
 				else{
+					shiny.innerHTML = "";
 					return false
 				}
 			}
