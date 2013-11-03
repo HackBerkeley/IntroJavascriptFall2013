@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		 <link rel="icon" href="favicon.ico" type="image/x-icon">
+		<link rel="icon" href="favicon.ico" type="image/x-icon">
 		<link href='http://fonts.googleapis.com/css?family=Merriweather+Sans:400,300' rel='stylesheet' type='text/css'>
 		<link href='http://fonts.googleapis.com/css?family=Niconne' rel='stylesheet' type='text/css'>
 		<title>Random Pokemon! </title>
 		<link href="index.css" type = "text/css" rel = "stylesheet">
 
 	</head>
-	
+
 	<body>
 
 		<div align = center>
-
 			<div id = "text">Wow. A Pokemon appeared! Wow.</div>
 			<div id = "howMany"></div>
 			<div><img id = "pokemonpic" height = "150px"></img></div>
@@ -22,6 +21,7 @@
 			<button onclick="reset()">reset</button>
 			<div> <button onclick="newBackground()">get new background!</button></div>
 		</div>
+
 		<script>
 			var pokemon_dict = window.localStorage.getItem('pokemans');
 			//var pokemon_color_array = ["#FFF", '#F0F', '#0FF', '#FF0', '#F00', '#00F', '#0F0'];
@@ -32,7 +32,7 @@
 			var pokemon_background = window.localStorage.getItem('pokemanBackground');
 			console.log(window.localStorage.getItem('pokemanBackground'));
 
-			function initializeColor(){
+			function initializeColor() {
 				console.log("Initialized");
 				console.log(window.localStorage.getItem('pokemanBackground'));
 				console.log(pokemon_background);
@@ -49,26 +49,25 @@
 
 			update();
 			initializeColor();
-			function newBackground(){
+
+			function newBackground() {
 				console.log(pokemon_background);
 				var new_pokemon_background = pokemon_background;
-					while(new_pokemon_background == pokemon_background){
-						new_pokemon_background = "rgb("+Math.round(Math.random()*255)+","+Math.round(Math.random()*255)+","+Math.round(Math.random()*255)+")";
-						//new_pokemon_background = pokemon_color_array[Math.floor(Math.random() * pokemon_color_array.length)];
-						console.log(new_pokemon_background);
-					}
+				while(new_pokemon_background == pokemon_background) {
+					new_pokemon_background = "rgb("+Math.round(Math.random()*255)+","+Math.round(Math.random()*255)+","+Math.round(Math.random()*255)+")";
+					//new_pokemon_background = pokemon_color_array[Math.floor(Math.random() * pokemon_color_array.length)];
+					console.log(new_pokemon_background);
+				}
 				window.localStorage.setItem('pokemanBackground', new_pokemon_background);
 				pokemon_background = new_pokemon_background;
 				document.body.style.backgroundColor = pokemon_background;
-
 			}
 
-			function update(){
+			function update() {
 				var img_number = getRandomPokemon();
 				if (isShiny()){
 					document.getElementById("pokemonpic").src = "http://sprites.pokecheck.org/s/"+img_number+".gif";
-				}
-				else{
+				} else {
 					document.getElementById("pokemonpic").src = "http://sprites.pokecheck.org/i/"+img_number+".gif";
 				}
 				var num = Number(img_number)-1;
@@ -78,8 +77,8 @@
 				}
 				window.localStorage.setItem('pokemans', pokemon_dict);
 				howManyLeft();
-
 			}
+
 			function getRandomPokemon() {
 	  			var num = Math.floor(Math.random() * 649) + 1;
 	  			if (num < 10) {
@@ -90,6 +89,7 @@
 			    console.log(num);
 			    return num;
 			}
+
 			function isShiny(){
 				var num = Math.floor(Math.random()*8912);
 				var str = "";
@@ -106,16 +106,13 @@
 
 			function howManyLeft(){
 				var numberLeft = pokemon_dict.split("0").length;
-				document.getElementById("howMany").innerHTML = "you have "+numberLeft+"/649 pokemen left to catch!" 
+				document.getElementById("howMany").innerHTML = "you have "+numberLeft+"/649 pokemen left to catch!"
 			}
-
-
 
 			function reset(){
 				pokemon_dict = new Array(649).join("0");
 				howManyLeft();
 			}
-
 
 		</script>
 
