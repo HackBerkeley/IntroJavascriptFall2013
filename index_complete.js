@@ -1,6 +1,6 @@
-var pokemon_dict;
+var pokemon_string;
 
-if (!pokemon_dict) {
+if (!pokemon_string) {
 }
 
 var pokemon_background;
